@@ -33,7 +33,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Appiah Eunice | Voice-Over Artist",
+    title: "Appiah Eunice | cVoice-Over Artist",
     description: "Professional voice-over artist delivering compelling narratives for brands and projects worldwide.",
     images: ["/hero.png"],
   },
