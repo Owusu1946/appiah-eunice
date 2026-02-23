@@ -7,11 +7,12 @@ import Footer from "./components/Footer";
 export default function Home() {
   return (
     <main>
-      <Hero />
+      <text>WHERE IS MY PICTURESSS!!!!</text>
+      {/* <Hero />
       <AboutMe />
       <Experiences />
       <CallToAction />
-      <Footer />
+      <Footer /> */}
     </main>
   );
 }
