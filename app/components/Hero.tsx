@@ -1,7 +1,34 @@
+"use client";
+
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
 export default function Hero() {
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [isScrolled, setIsScrolled] = useState(false);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            if (window.scrollY > 50) {
+                setIsScrolled(true);
+            } else {
+                setIsScrolled(false);
+            }
+        };
+
+        window.addEventListener("scroll", handleScroll);
+        return () => window.removeEventListener("scroll", handleScroll);
+    }, []);
+
+    const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+
+    const navLinks = [
+        { name: "About Me", href: "#about" },
+        { name: "Portfolio", href: "#portfolio" },
+        { name: "Contact", href: "#contact" },
+    ];
+
     return (
         <section className="relative w-full min-h-screen bg-[#fafafa] text-neutral-800 overflow-hidden">
             {/* 
@@ -39,36 +66,106 @@ export default function Hero() {
                         </div>
                     </div>
 
-                    {/* Top Nav */}
-                    <nav className="flex items-center justify-between pt-2 lg:pt-4 w-full">
-                        {/* Logo */}
-                        <div className="w-5 h-5 lg:w-6 lg:h-6 shrink-0">
-                            <svg viewBox="0 0 24 24" fill="none" className="w-full h-full text-black">
-                                <path d="M12 2L2 22H22L12 2Z" fill="currentColor" />
-                                <path d="M12 6L4 20H20L12 6Z" fill="#fafafa" />
-                            </svg>
-                        </div>
+                    {/* Top Nav Wrapper (Dynamic Island) */}
+                    <div className={`fixed top-0 left-0 w-full z-50 flex justify-center items-start pt-6 px-6 pointer-events-none transition-all duration-500`}>
+                        <nav className={`
+                            relative flex items-center pointer-events-auto
+                            transition-all duration-500 ease-in-out px-4 py-2.5
+                            ${isScrolled
+                                ? "bg-white/80 backdrop-blur-md border border-neutral-200/50 shadow-lg rounded-full w-full max-w-[340px] md:max-w-[440px] justify-between"
+                                : "w-full pt-2 lg:pt-4 justify-between lg:grid lg:grid-cols-3"}
+                        `}>
+                            {/* Logo */}
+                            <div className={`shrink-0 transition-opacity duration-300 ${isScrolled ? "hidden md:block" : "lg:flex lg:justify-start"}`}>
+                                <svg viewBox="0 0 24 24" fill="none" className="w-5 h-5 lg:w-6 lg:h-6 text-black">
+                                    <path d="M12 2L2 22H22L12 2Z" fill="currentColor" />
+                                    <path d="M12 6L4 20H20L12 6Z" fill={isScrolled ? "white" : "#fafafa"} />
+                                </svg>
+                            </div>
 
-                        {/* Mobile Book Button */}
-                        <Link href="#" className="lg:hidden flex items-center gap-1 text-[11px] font-semibold text-neutral-800 uppercase tracking-widest pl-2 border-b border-black pb-0.5">
-                            Book
-                            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                <line x1="7" y1="17" x2="17" y2="7"></line>
-                                <polyline points="7 7 17 7 17 17"></polyline>
-                            </svg>
-                        </Link>
+                            {/* Links (Desktop) */}
+                            <div className={`
+                                ${isScrolled ? "flex" : "hidden md:flex"}
+                                items-center gap-6 md:gap-8 text-[11px] font-semibold text-neutral-800 uppercase tracking-widest
+                                ${!isScrolled && "lg:justify-center"}
+                            `}>
+                                {navLinks.map((link) => (
+                                    <Link key={link.href} href={link.href} className="hover:text-black transition-colors hover:scale-105">
+                                        {link.name}
+                                    </Link>
+                                ))}
+                            </div>
 
-                        {/* Links */}
-                        <div className="hidden md:flex items-center gap-8 text-xs font-medium text-neutral-600">
-                            <Link href="#" className="hover:text-black transition-colors">About Me</Link>
-                            <Link href="#" className="hover:text-black transition-colors">Portfolio</Link>
-                            <Link href="#" className="hover:text-black transition-colors">Services</Link>
-                            <Link href="#" className="hover:text-black transition-colors">Blog</Link>
+                            {/* Right placeholder for balance when not scrolled (Desktop) */}
+                            {!isScrolled && <div className="hidden lg:block"></div>}
+
+                            {/* Mobile Menu Button (Only when not scrolled or on small screens) */}
+                            <button
+                                onClick={toggleMenu}
+                                className={`lg:hidden flex items-center gap-2 text-[11px] font-semibold text-neutral-800 uppercase tracking-widest pl-2 transition-all ${isScrolled ? "hidden md:flex" : "border-b border-black pb-0.5"}`}
+                            >
+                                {isMenuOpen ? "Close" : "Menu"}
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                    {isMenuOpen ? (
+                                        <>
+                                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                                        </>
+                                    ) : (
+                                        <>
+                                            <line x1="3" y1="12" x2="21" y2="12"></line>
+                                            <line x1="3" y1="6" x2="21" y2="6"></line>
+                                            <line x1="3" y1="18" x2="21" y2="18"></line>
+                                        </>
+                                    )}
+                                </svg>
+                            </button>
+
+                            {/* Mobile Burger for Island - Simple Icon */}
+                            <button
+                                onClick={toggleMenu}
+                                className={`lg:hidden flex items-center justify-center w-8 h-8 rounded-full transition-all ${isScrolled ? "flex" : "hidden"}`}
+                            >
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                                    <line x1="4" y1="12" x2="20" y2="12"></line>
+                                    <line x1="4" y1="6" x2="20" y2="6"></line>
+                                    <line x1="4" y1="18" x2="20" y2="18"></line>
+                                </svg>
+                            </button>
+                        </nav>
+                    </div>
+
+                    {/* Mobile Menu Overlay */}
+                    <div className={`fixed inset-0 z-[60] bg-[#fafafa] flex flex-col p-12 transition-transform duration-500 lg:hidden ${isMenuOpen ? "translate-y-0" : "-translate-y-full"}`}>
+                        <div className="flex justify-between items-center mb-24">
+                            <div className="w-6 h-6">
+                                <svg viewBox="0 0 24 24" fill="none" className="w-full h-full text-black">
+                                    <path d="M12 2L2 22H22L12 2Z" fill="currentColor" />
+                                    <path d="M12 6L4 20H20L12 6Z" fill="#fafafa" />
+                                </svg>
+                            </div>
+                            <button onClick={toggleMenu} className="text-[11px] font-semibold uppercase tracking-widest border-b border-black">Close</button>
                         </div>
-                    </nav>
+                        <div className="flex flex-col gap-8">
+                            {navLinks.map((link) => (
+                                <Link
+                                    key={link.href}
+                                    href={link.href}
+                                    onClick={toggleMenu}
+                                    className="text-5xl font-light tracking-tighter hover:pl-4 transition-all"
+                                >
+                                    {link.name}
+                                </Link>
+                            ))}
+                        </div>
+                        <div className="mt-auto pt-12 border-t border-neutral-200">
+                            <p className="text-[10px] uppercase tracking-widest text-neutral-400 mb-4">Get in Touch</p>
+                            <a href="mailto:euniceappiah2@gmail.com" className="text-xl font-medium">euniceappiah2@gmail.com</a>
+                        </div>
+                    </div>
 
                     {/* Stats Row */}
-                    <div className="flex items-start gap-8 lg:gap-12 mt-12 lg:mt-24 mb-auto">
+                    <div className="flex items-start gap-8 lg:gap-12 mt-12 lg:mt-24 mb-auto pt-16 lg:pt-0">
                         <div>
                             <div className="text-xl lg:text-2xl font-light text-neutral-800 mb-1">Author</div>
                             <div className="text-[9px] lg:text-[10px] text-neutral-400 font-medium uppercase tracking-wide">NOT BEAUTY-FULL</div>
@@ -114,10 +211,10 @@ export default function Hero() {
 
                 {/* --- Right Column (Portrait) --- */}
                 <div className="relative h-[45vh] sm:h-[55vh] lg:h-auto lg:col-span-7 overflow-hidden mt-2 lg:mt-0">
-                    {/* Book A Call - Positioned absolute top right for desktop */}
+                    {/* Connect Button - Positioned absolute top right for desktop */}
                     <div className="absolute top-10 right-10 z-30 hidden lg:block">
-                        <Link href="#" className="group flex items-center gap-1 text-xs font-semibold text-neutral-800 border-b border-transparent hover:border-black transition-all pb-0.5">
-                            Book A Call
+                        <Link href="#contact" className="group flex items-center gap-1 text-xs font-semibold text-neutral-800 border-b border-transparent hover:border-black transition-all pb-0.5">
+                            Let&apos;s Connect
                             <svg
                                 width="10"
                                 height="10"
@@ -140,7 +237,7 @@ export default function Hero() {
                         <div className="relative w-[90%] sm:w-[75%] h-full lg:w-[120%] lg:-ml-[10%]">
                             <Image
                                 src="/lovinda.png"
-                                alt="Appiah Eunice Portrait"
+                                alt="Eunice Appiah Portrait"
                                 fill
                                 className="object-contain object-bottom"
                                 priority

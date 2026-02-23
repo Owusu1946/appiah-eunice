@@ -2,7 +2,7 @@ import Image from "next/image";
 
 export default function AboutMe() {
     return (
-        <section className="w-full bg-[#f8f8f8] py-24 lg:py-32 overflow-hidden">
+        <section id="about" className="w-full bg-[#f8f8f8] py-24 lg:py-32 overflow-hidden">
             <div className="max-w-7xl mx-auto px-6 lg:px-12">
                 <div className="grid grid-cols-1 md:grid-cols-12 gap-12 lg:gap-16 items-start">
 
