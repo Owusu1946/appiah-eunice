@@ -168,7 +168,7 @@ export default function Hero() {
                     <div className="flex items-start gap-8 lg:gap-12 mt-12 lg:mt-24 mb-auto pt-16 lg:pt-0">
                         <div>
                             <div className="text-xl lg:text-2xl font-light text-neutral-800 mb-1">Author</div>
-                            <div className="text-[9px] lg:text-[10px] text-neutral-400 font-medium uppercase tracking-wide">NOT BEAUTY-FULL</div>
+                            <Link href="https://selar.com/594w65" target="_blank" rel="noopener noreferrer" className="block text-[9px] lg:text-[10px] text-neutral-400 hover:text-neutral-800 font-medium uppercase tracking-wide transition-colors">NOT BEAUTY-FULL</Link>
                         </div>
                         <div>
                             <div className="text-xl lg:text-2xl font-light text-neutral-800 mb-1">Translator</div>

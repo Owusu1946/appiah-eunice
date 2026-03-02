@@ -49,7 +49,7 @@ export default function AboutMe() {
                             <div className="w-full relative h-[250px] bg-neutral-200 mt-2">
                                 {/* Using a placeholder or lovinda.png here */}
                                 <Image
-                                    src="/lovinda.png"
+                                    src="/images/photo_1_2026-03-02_19-35-25.jpg"
                                     alt="Appiah Eunice Profile"
                                     fill
                                     className="object-cover object-top"
@@ -65,7 +65,7 @@ export default function AboutMe() {
                         <div className="relative w-full max-w-[280px] aspect-square rounded-2xl overflow-hidden mb-12 shadow-[0_8px_30px_rgb(0,0,0,0.04)] mx-auto md:mx-0">
                             {/* This can be the same hero image or another one, acting as the top-right photo */}
                             <Image
-                                src="/lovinda.png"
+                                src="/images/photo_2_2026-03-02_19-35-25.jpg"
                                 alt="Eunice Appiah Detail"
                                 fill
                                 className="object-cover object-center"

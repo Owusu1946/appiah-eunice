@@ -30,7 +30,7 @@ const experiences = [
         tags: ["Documentary", "Corporate"],
         active: true,
         expandedContent: {
-            images: ["/lovinda.png", "/lovinda.png", "/lovinda.png"],
+            images: ["/images/book.png", "/images/photo_2_2026-03-02_19-35-25.jpg", "/lovinda.png", "/images/photo_1_2026-03-02_19-35-25.jpg"],
             text: "Including ANIMAL DOCUMENTARY (MENTALITY OF THE ANT), Sustainable Development Goal 4, Samsung A31, Access Bank Vals, Breakfast ad, 6th March 2024 & 2025, and IWD 2024 (Nana Aba Anamoah)."
         }
     }
